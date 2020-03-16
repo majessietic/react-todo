@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, Fragment } from 'react'
 import { TodoList } from '@Components/Main/TodoList'
 import { TodoContext } from '@Context/TodoContext'
 
@@ -6,7 +6,7 @@ export const Main = () => {
   const { todos } = useContext(TodoContext)
 
   const todoList = todos.length ? (
-    <ul>
+    <Fragment>
       {todos.map(todo => (
         <TodoList 
           key={todo.id}
@@ -15,14 +15,14 @@ export const Main = () => {
           isCompleted={todo.isCompleted}
         />
       ))}
-    </ul>
+    </Fragment>
   ) : (
-    <h1>No more Todo&apos;s Left</h1>
+    <h2>No more Todo&apos;s Left</h2>
   )
 
   return (
-    <div className="main">
+    <Fragment>
       {todoList}
-    </div>
+    </Fragment>
   )
 }
