@@ -1,11 +1,13 @@
-import React, { useState, useContext, Fragment } from 'react'
+import React, { useState, useContext, Fragment, createRef } from 'react'
 import { TodoContext } from '@Context/TodoContext'
-import { Box } from '@material-ui/core'
-import TextField from '@material-ui/core/TextField'
-import { Add } from '@material-ui/icons'
+import { Box, TextField } from '@material-ui/core'
+import { AddCircleOutline } from '@material-ui/icons'
 
 export const Footer = () => {
   const [content, setContent] = useState('')
+
+  const userInputRef = createRef()
+  const textAreaFocus = () => userInputRef.current.focus()
 
   const { addTodo } = useContext(TodoContext)
 
@@ -23,21 +25,26 @@ export const Footer = () => {
   }
 
   return (
-    <Fragment>
-      <Box display='flex' alignItems='center'>
-        <Box>
-          <Add />
-        </Box>
-        <Box p={1}>
-          <TextField
-            type="text"
-            value={content}
-            onChange={e => setContent(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Add new Todo"
-          />
-        </Box>
+    <Box 
+      display='flex'
+      alignItems='center'
+    >
+      <Box p={1}>
+        <AddCircleOutline
+          style={{ cursor: 'pointer' }}
+          onClick={textAreaFocus}
+        />
       </Box>
-    </Fragment>
+      <Box p={1} width={1}>
+        <TextField
+          value={content}
+          ref={userInputRef}
+          onChange={e => setContent(e.target.value)}
+          onKeyPress={handleKeyPress}
+          placeholder='Add new Todo'
+          fullWidth
+        />
+      </Box>
+    </Box>
   )
 }
