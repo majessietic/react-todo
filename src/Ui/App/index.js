@@ -22,7 +22,7 @@ export const App = () => {
           }}
           border={1}
         >
-          <Header name='Todo List' />
+          <Header title='Creator&apos;s Todo List' />
           <Box
             className='boxTodo'
             flexGrow={1}
