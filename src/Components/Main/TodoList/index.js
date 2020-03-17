@@ -20,7 +20,10 @@ export const TodoList = ({ id, content, isCompleted }) => {
   
   return (
     <Fragment>
-      <Box display='flex' alignItems='center' width='100%'>
+      <Box display='flex'
+        alignItems='center'
+        width={1}
+      >
         <Box p={1}>
           {checked}
         </Box>

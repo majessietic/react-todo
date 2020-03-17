@@ -12,18 +12,23 @@ export const App = () => {
         <CssBaseline />
         <Typography />
         <Box 
-          justifyContent='flex-end' 
-          alignItems='center' 
+          id='boxTodo'
+          display='flex'
+          justifyContent='flex-end'
           flexDirection='column'
           style={{
             height: '500px',
             width: '330px',
-            padding: '.5rem'
           }}
           border={1}
         >
           <Header name='Todo List' />
-          <Main />
+          <Box
+            className='boxTodo'
+            flexGrow={1}
+          >
+            <Main />
+          </Box>
           <Footer />
         </Box>
       </Fragment>

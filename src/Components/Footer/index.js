@@ -27,7 +27,7 @@ export const Footer = () => {
   return (
     <Box 
       display='flex'
-      alignItems='center'
+      alignItems='flex-end'
     >
       <Box p={1}>
         <AddCircleOutline
