@@ -1,49 +1,109 @@
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext, useState } from 'react'
 import { TodoContext } from '@Context/TodoContext'
-import { DeleteOutlined, CheckBoxOutlineBlank, CheckBox } from '@material-ui/icons'
-import { Divider, Box } from '@material-ui/core'
+import { Divider, Box, TextField } from '@material-ui/core'
+import { 
+  DeleteOutlined, 
+  CheckBoxOutlineBlank, 
+  CheckBox, 
+  EditOutlined,
+  CancelOutlined } from '@material-ui/icons'
 
-export const TodoList = ({ id, content, isCompleted }) => {
-  const { deleteTodo, completeTodo } = useContext(TodoContext)
+export const TodoList = (props) => {
+  const [edit, setEdit] = useState(false)
+  const [content, setContent] = useState(props.content)
 
-  const checked = isCompleted ? (
-    <CheckBox
-      onClick={() => completeTodo(id)}
-      style={{ cursor: 'pointer' }}
-    />
-  ) : (
-    <CheckBoxOutlineBlank 
-      onClick={() => completeTodo(id)} 
-      style={{ cursor: 'pointer' }}
-    />
-  )
-  
+  const { deleteTodo, completeTodo, editTodo } = useContext(TodoContext)
+
   return (
     <Fragment>
-      <Box display='flex'
-        alignItems='center'
-        width={1}
-      >
-        <Box p={1}>
-          {checked}
-        </Box>
-        <Box 
-          p={1} 
-          flexGrow={1} 
-          style={{ 
-            textDecoration: isCompleted ? 'line-through' : '',
-            opacity: isCompleted ? '0.5' : '1'
-          }}
+      {edit ? (
+        <Box display='flex'
+          alignItems='center'
+          width={1}
         >
-          {content}
+          <Box p={1}>
+            {props.isCompleted ? (
+              <CheckBox
+                onClick={() => completeTodo(props.id)}
+                style={{ cursor: 'pointer' }}
+              />
+            ) : (
+              <CheckBoxOutlineBlank 
+                onClick={() => completeTodo(props.id)} 
+                style={{ cursor: 'pointer' }}
+              />
+            )}
+          </Box>
+          <Box 
+            p={1} 
+            flexGrow={1}
+          >
+            <Box p={1} w={1}>
+              <TextField
+                value={content}
+                onChange={e => setContent(e.target.value)}
+                onKeyPress={e => {
+                  if (!content) return
+                  if (e.key === 'Enter') {
+                    editTodo(props.id, content)
+                    setEdit(false)
+                  }
+                }}
+              />
+            </Box>
+          </Box>
+          <Box p={1}>
+            <CancelOutlined
+              onClick={() => {
+                setContent(props.content)
+                setEdit(false)
+              }} 
+              style={{ cursor: 'pointer' }}
+            />
+          </Box>
         </Box>
-        <Box p={1}>
-          <DeleteOutlined 
-            onClick={() => deleteTodo(id)} 
-            style={{ cursor: 'pointer' }}
-          />
+      ) : (
+        <Box display='flex'
+          alignItems='center'
+          width={1}
+        >
+          <Box p={1}>
+            {props.isCompleted ? (
+              <CheckBox
+                onClick={() => completeTodo(props.id)}
+                style={{ cursor: 'pointer' }}
+              />
+            ) : (
+              <CheckBoxOutlineBlank 
+                onClick={() => completeTodo(props.id)} 
+                style={{ cursor: 'pointer' }}
+              />
+            )}
+          </Box>
+          <Box 
+            p={1} 
+            flexGrow={1} 
+            style={{ 
+              textDecoration: props.isCompleted ? 'line-through' : '',
+              opacity: props.isCompleted ? '0.5' : '1'
+            }}
+          >
+            {content}
+          </Box>
+          <Box>
+            <EditOutlined
+              onClick={() => setEdit(true)}
+              style={{ cursor: 'pointer' }}
+            />
+          </Box>
+          <Box p={1}>
+            <DeleteOutlined 
+              onClick={() => deleteTodo(props.id)} 
+              style={{ cursor: 'pointer' }}
+            />
+          </Box>
         </Box>
-      </Box>
+      )}
       <Divider />
     </Fragment>
   )
