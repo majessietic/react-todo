@@ -4,15 +4,15 @@ import { TodoReducer } from '@Reducer/TodoReducer'
 const initialState = {
   todos: [
     { id: 1, 
-      content: 'Do programming at 5am', 
+      content: 'Learn JavaScript', 
       isCompleted: false
     },
     { id: 2,
-      content: 'Learn about React',
+      content: 'Learn React',
       isCompleted: false
     },
     { id: 3,
-      content: 'Be productive everyday',
+      content: 'Learn Hooks',
       isCompleted: false
     }
   ]
@@ -45,13 +45,22 @@ export const TodoContextProvider = (props) => {
     })
   }
 
+  const editTodo = (id, content) => {
+    dispatch({
+      type: 'EDIT_TODO',
+      id: id,
+      content: content
+    })
+  }
+
   return (
     <TodoContext.Provider
       value={{
         todos: state.todos,
         addTodo,
         deleteTodo,
-        completeTodo
+        completeTodo,
+        editTodo
       }}
     >
       {props.children}

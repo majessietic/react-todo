@@ -1,5 +1,15 @@
 export function TodoReducer (state, action) {
   switch(action.type) {
+    case 'EDIT_TODO': {
+      const id = state.todos.findIndex(todo => todo.id === action.id)
+      const todo = {...state.todos[id]}
+      todo.content = action.content
+      const todos = [...state.todos]
+      todos.splice(id, 1, todo)
+      return {
+        todos: todos
+      }
+    }
     case 'COMPLETE_TODO':
       return {
         ...state,
