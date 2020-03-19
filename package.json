@@ -4,10 +4,12 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jessie Tarrosa",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -23,6 +25,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
+    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
@@ -36,5 +39,13 @@
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/majessietic/react-todo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/majessietic/react-todo/issues"
+  },
+  "homepage": "https://majessietic.github.io/react-todo/",
   "description": ""
 }
